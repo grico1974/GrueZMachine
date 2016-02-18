@@ -11,4 +11,6 @@ Code of this branch follows part five six and seven of Eric's bloq series:
 
 [Kitchen](http://ericlippert.com/2016/02/12/kitchen/)
 
-Oh, oh, we now have to load up a .z3 file, and therefore interact with the real world...*IO*. In Haskell things are very very different when it comes to *IO* interaction. I am still trying to get my head around how it all works, but suffice to say that in order to keep all my implementation as pure as possible, I'll leave the loading action of the file inside `main` where I can leverage the *IO monad* and make things work.
+Oh, oh, we now have to load up a .z3 file, and therefore interact with the real world...*IO*. In Haskell things are very very different when it comes to *IO* interaction. I am still trying to get my head around how it all works, but suffice to say that in order to keep all my implementation as pure as possible, I'll leave the loading action of the file inside `main` where I can leverage the *IO monad* and make things work. When I have a deeper understanding I might need to alter some code, but I'll leave that for later hoping I'm not making a mistake that will require a deep code refactoring of all my implementation.
+
+`Story` implementation is quite straightforward, not much to comment.
