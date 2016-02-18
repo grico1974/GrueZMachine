@@ -1,20 +1,18 @@
 module Main where
 
-import Data.Bits
+import qualified Data.ByteString.Char8 as BS (pack)
+import Text.Printf
 import Types
 import Utility
-import Text.Printf
+import ImmutableBytes
 
-word :: Int
-word = 0xBEEF
-
-fetch_Bits_Original :: Int -> Int -> Int -> Int
-fetch_Bits_Original high length word =
-   let mask = complement ((-1) `shiftL` length) in
-   (word `shiftR` ( high - length + 1)) .&. mask
 
 main :: IO()
 main = 
-  printf "First try: %0x \n" ((word `shiftR` 12) .&. (complement ((-1) `shiftL` 15))) >>
-  printf "fetch_Bits_Original: %0x \n" (fetch_Bits_Original 15 4 word) >>
-  printf "fetch_Bits: %0x \n" (fetch_Bits bit15 size4 word)
+  let addr1 = ByteAddress 1 in
+  let bytes_a = make_ImmutableBytes (BS.pack "Hello world") in
+  let bytes_b = ImmutableBytes.write_Byte bytes_a addr1 65 in
+  let b_a = ImmutableBytes.read_Byte bytes_a addr1 in
+  let b_b = ImmutableBytes.read_Byte bytes_b addr1 in
+  printf "%d %d\n" b_a b_b
+  

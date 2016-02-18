@@ -30,28 +30,36 @@ bit15 = BitNumber 15
 
 fetch_Bit :: BitNumber -> Int -> Bit
 fetch_Bit bit word =
-   if (let (BitNumber n) = bit in
-       ((1 `shiftL` n) .&. word) `shiftR` n) == 1
+   if (let BitNumber n = bit
+       in ((1 `shiftL` n) .&. word) `shiftR` n) == 1
    then One else Zero
    
 clear_Bit :: BitNumber -> Int -> Int
 clear_Bit bit word =
-   let (BitNumber n) = bit in
-   word `clearBit` n
+   let BitNumber n = bit
+   in word `clearBit` n
 
 set_Bit :: BitNumber -> Int -> Int
 set_Bit bit word =
-   let (BitNumber n) = bit in
-   word `setBit` n
+   let BitNumber n = bit 
+   in word `setBit` n
    
 set_Bit_To :: BitNumber -> Int -> Bit -> Int
 set_Bit_To bit word value =  
    if value == Zero then clear_Bit bit word 
-                    else set_Bit bit word 
+   else set_Bit bit word 
 
 fetch_Bits :: BitNumber -> BitSize -> Int -> Int
 fetch_Bits highBit bitLength word = 
-   let (BitNumber high) = highBit in
-   let (BitSize length) = bitLength in
-   let mask = complement ((-1) `shiftL` length)  in
-   (word `shiftR` ( high - length + 1)) .&. mask
+   let BitNumber high = highBit
+       BitSize length = bitLength
+       mask = complement ((-1) `shiftL` length)
+   in (word `shiftR` ( high - length + 1)) .&. mask
+
+is_In_Range :: ByteAddress -> Int -> Bool
+is_In_Range address size =
+   let (ByteAddress addr) = address
+   in 0 <= addr && addr < size
+
+is_Out_Of_Range :: ByteAddress -> Int -> Bool
+is_Out_Of_Range address size = not (is_In_Range address size)
