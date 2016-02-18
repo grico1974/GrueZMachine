@@ -2,10 +2,10 @@ echo off
 del *.o
 del *.hi
 del *.exe
-ghc flathead
+ghc Grue
 del *.o
 del *.hi
 echo Running Flathead...
-flathead.exe
+Grue.exe
 echo Run finished.
 pause
