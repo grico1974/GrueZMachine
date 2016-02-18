@@ -7,6 +7,7 @@ To build the project I'll be using the windows and mac Haskell platform. You can
 
 Disclaimer: I've started this project to begin learning Haskell. I am in no way experienced with the language nor with OCaml so this will be a pure learning experiencein the functional world. I'd appreciate any lost soul who happens to stumble upon this project and knows about Haskell to give any constructive feedback about how well or awefully bad I'm porting Eric's code.
 
+<<<<<<< HEAD
 Ok let's get started. This branch will cover Eric's first 3 blogs in the series:
 
 [West of house](http://ericlippert.com/2016/02/01/west-of-house/)
@@ -20,3 +21,6 @@ Worth noting that allthough Eric keeps his code as clean as possible with very l
 Lightweight type wrappers can be done via the `newtype` keyword in Haskell. Almost equivalent is the `data` keyword. Among other slight differences, the latter allows you to define more than one constructor, something that can't be done with `newtype`. I've implemented `Bit` to showcase this diference.
 
 `type` is another option Haskell offers to create wrapper types, but this just creates an alias to another type and both can be used indifferently which defeats the prupose of why Eric is creating them to begin with. For example, in Haskell, `String` is just an alias of `[Char]`
+=======
+That said, let's get to work.
+>>>>>>> refs/remotes/origin/master
