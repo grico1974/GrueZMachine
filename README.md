@@ -9,4 +9,8 @@ Code of this branch follows part seven and eight of Eric's bloq series:
 
 [Attic](http://ericlippert.com/2016/02/17/attic/)
 
-We get to begin learning how strings are compressed in a .z3 file and how we can decode them, allthough things are more complicated than what may appear in these last two episodes.
+We get to begin learning how strings are compressed in a .z3 file and how we can decode them, although things are more complicated than what may appear in these last two episodes.
+
+Recursive methods in Haskell do not require any special keyword like apparently OCaml does and the order in which the inner functions are defined is different; outside to inside using the `where` keyword while OCaml apparently is from inside to outside.
+
+I take this opportunity to also point out another subtle difference between Haskell and OCaml, or at least, Eric's impelemtation. It seems as if OCaml does not have `let-in` blocks or maybe Eric is simply not using them. Haskell allows you to use these blocks and not repeatedly use `let` and `in` in every nested binding.
