@@ -21,6 +21,6 @@ Basically what happens is that anything that comes from the *real world* is not 
 
 In order to discern pure functions from impure (*IO* interaction), types are "tagged" with an `IO` "badge". For instance, `ByteString.readFile` does not return a `ByteString`, it returns an `IO ByteString` which is not the same at all; any function taking a `ByteString` will *not* admit a `IO ByteString`.
 
-You can plug in pure and impure functions because `IO` is a monad so it implements a *functor* `fmap` that maps types to *IO* types: `fmap :: (a -> b) -> IO a -> IO b`. In other words, we can take pure functions and make them work with `IO` types. In `do` notation, the way you plug in both worlds is `myPureWorld <- theRealWorld`.
+You can plug in pure and impure functions because `IO` is a monad so it implements a *functor* `fmap` that "upgrades" a pure function to its *IO* counterpart: `fmap :: (a -> b) -> IO a -> IO b`. In other words, we can take pure functions and make them work with `IO` types. In `do` notation, the way you plug in both worlds is `myPureWorld <- theRealWorld`.
 
 `Story` implementation is quite straightforward, not much to comment.
