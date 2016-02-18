@@ -1,7 +1,7 @@
 #! /bin/bash
 find . -type f -iname \*.hi -delete
 find . -type f -iname \*.o -delete
-ghc flathead
+ghc Grue
 find . -type f -iname \*.hi -delete
 find . -type f -iname \*.o -delete
-open flathead
+open Grue
