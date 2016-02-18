@@ -7,4 +7,6 @@ To build the project I'll be using the windows and mac Haskell platform. You can
 
 Disclaimer: I've started this project to begin learning Haskell. I am in no way experienced with the language nor with OCaml so this will be a pure learning experience of the functional world. I'd appreciate any lost soul who happens to stumble upon this project and knows about Haskell to give any constructive feedback about how well or awfully bad I'm porting Eric's code.
 
+And last but not least, my mother tongue is not english, so I apologize beforehand for any spelling or grammatical mistakes.
+
 That said, let's get to work.
