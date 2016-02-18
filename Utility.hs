@@ -91,3 +91,15 @@ address_Of_Low_Byte :: WordAddress -> ByteAddress
 address_Of_Low_Byte address =
    let WordAddress addr = address
    in ByteAddress (addr + 1)
+
+wordSize :: Int
+wordSize = 2
+
+increment_WordAddress_By :: WordAddress -> Int -> WordAddress
+increment_WordAddress_By address offset =
+   let WordAddress addr = address
+   in WordAddress (addr + offset * wordSize)
+
+increment_WordAddress :: WordAddress -> WordAddress
+increment_WordAddress address =
+   increment_WordAddress_By address 1

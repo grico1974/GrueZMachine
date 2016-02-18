@@ -1,10 +1,10 @@
 module Story where
 
+import Data.Bits
+import qualified Data.ByteString as BS
 import Types
 import Utility
-import Data.Bits
 import qualified ImmutableBytes as IB
-import qualified Data.ByteString as BS
 
 data Story = Story IB.ImmutableBytes BS.ByteString
 
@@ -39,6 +39,11 @@ write_Word story address value =
 
 header_size = 64
 static_Memory_Base_Offset = WordAddress 14
+
+abbreviations_Table_Base :: Story -> AbbreviationTableBase
+abbreviations_Table_Base story =
+   let abbreviationsTableBaseOffset = WordAddress 24
+   in AbbreviationTableBase (read_Word story abbreviationsTableBaseOffset)
    
 load_Story :: BS.ByteString -> Story
 load_Story bytes =
