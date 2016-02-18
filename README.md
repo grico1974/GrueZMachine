@@ -3,12 +3,10 @@ A Haskell implementation of [Eric Lippert's](http://ericlippert.com/) OCaml ZMac
 
 The branches will be in sync with Eric's, that should make following both projects easier. I wont' have time to blog about it as I go along so I'll explain any significant decisiones I may take here.
 
-Code of this branch follows part five six and seven of Eric's bloq series:
+Code of this branch follows part seven and eight of Eric's bloq series:
 
-[Up a tree](http://ericlippert.com/2016/02/09/up-a-tree/)
+[Living room](http://ericlippert.com/2016/02/15/living-room/)
 
-[Behind house](http://ericlippert.com/2016/02/10/behind-house/)
+[Attic](http://ericlippert.com/2016/02/17/attic/)
 
-[Kitchen](http://ericlippert.com/2016/02/12/kitchen/)
-
-Oh, oh, we now have to load up a .z3 file, and therefore interact with the real world...*IO*. In Haskell things are very very different when it comes to *IO* interaction. I am still trying to get my head around how it all works, but suffice to say that in order to keep all my implementation as pure as possible, I'll leave the loading action of the file inside `main` where I can leverage the *IO monad* and make things work.
+We get to begin learning how strings are compressed in a .z3 file and how we can decode them, allthough things are more complicated than what may appear in these last two episodes.
