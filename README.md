@@ -17,4 +17,4 @@ We get to begin learning how strings are compressed in a .z3 file and how we can
 
 Recursive methods in Haskell do not require any special keyword like apparently OCaml does and the order in which the inner functions are defined is different; outside to inside using the `where` keyword while OCaml apparently is from inside to outside.
 
-I take this opportunity to also point out another subtle difference between Haskell and OCaml, or at least, Eric's impelemtation. It seems as if OCaml does not have `let-in` blocks or maybe Eric is simply not using them. Haskell allows you to use these blocks and not repeatedly use `let` and `in` in every nested binding.
+Which reminds me I forgot to point out a curious and convenient difference between Haskell and OCaml, or at least, Eric's implementation. It seems as if OCaml does not have `let-in` blocks or maybe Eric is simply not using them. Haskell allows you to use these blocks and not repeatedly use `let` and `in` in every nested binding.
