@@ -1,6 +1,7 @@
 module Utility where
 
 import Data.Bits
+import qualified Data.ByteString as BS
 import Types
 
 size1 = BitSize 1
@@ -63,3 +64,30 @@ is_In_Range address size =
 
 is_Out_Of_Range :: ByteAddress -> Int -> Bool
 is_Out_Of_Range address size = not (is_In_Range address size)
+
+increment_ByteAddress_By :: ByteAddress -> Int -> ByteAddress
+increment_ByteAddress_By address offset =
+   let ByteAddress addr = address
+   in ByteAddress (addr + offset)
+
+decrement_ByteAddress_By :: ByteAddress -> Int -> ByteAddress
+decrement_ByteAddress_By address offset =
+   increment_ByteAddress_By address (-offset)
+
+dereference_ByteString :: BS.ByteString -> ByteAddress -> Int
+dereference_ByteString bytes address =
+   if is_Out_Of_Range address (BS.length bytes) then
+      error "address out of range"
+   else
+      let ByteAddress addr = address
+      in fromIntegral (bytes `BS.index` addr)
+
+address_Of_High_Byte :: WordAddress -> ByteAddress
+address_Of_High_Byte address =
+   let WordAddress addr = address
+   in ByteAddress addr
+
+address_Of_Low_Byte :: WordAddress -> ByteAddress
+address_Of_Low_Byte address =
+   let WordAddress addr = address
+   in ByteAddress (addr + 1)

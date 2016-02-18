@@ -1,18 +1,16 @@
 module Main where
 
-import qualified Data.ByteString.Char8 as BS (pack)
+import qualified Data.ByteString as BS
 import Text.Printf
 import Types
 import Utility
-import ImmutableBytes
+import qualified Story as Story
 
-
-main :: IO()
-main = 
-  let addr1 = ByteAddress 1 in
-  let bytes_a = make_ImmutableBytes (BS.pack "Hello world") in
-  let bytes_b = ImmutableBytes.write_Byte bytes_a addr1 65 in
-  let b_a = ImmutableBytes.read_Byte bytes_a addr1 in
-  let b_b = ImmutableBytes.read_Byte bytes_b addr1 in
-  printf "%d %d\n" b_a b_b
+main = do {
+    bytes <- (BS.readFile "minizork.z3");
+    let story = Story.load_Story bytes in
+    let versionAddress = ByteAddress 0 in
+    let version = Story.read_Byte story versionAddress in
+    printf "Version of file is: v%d\n" version
+  }
   
