@@ -3,6 +3,12 @@ A Haskell implementation of [Eric Lippert's](http://ericlippert.com/) OCaml ZMac
 
 The branches will be in sync with Eric's, that should make following both projects easier. I wont' have time to blog about it as I go along so I'll explain any significant decisiones I may take here.
 
-Ok so now we have type safe bit twiddling, yay!. Next step is making ourselves an immutable byte array that will represent the dynamic memory of what we will later call the stroy state of the ZMachine.
+Code of this branch follows part five six and seven of Eric's bloq series:
 
-Code of this branch follows part four of Eric's bloq series: [Up a tree](http://ericlippert.com/2016/02/09/up-a-tree/)
+[Up a tree](http://ericlippert.com/2016/02/09/up-a-tree/)
+
+[Behind house](http://ericlippert.com/2016/02/10/behind-house/)
+
+[Kitchen](http://ericlippert.com/2016/02/12/kitchen/)
+
+Oh, oh, we now have to load up a .z3 file, and therefore interact with the real world...*IO*. In Haskell things are very very different when it comes to *IO* interaction. I am still trying to get my head around how it all works, but suffice to say that in order to keep all my implementation as pure as possible, I'll leave the loading action of the file inside `main` where I can leverage the *IO monad* and make things work.
