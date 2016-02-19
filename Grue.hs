@@ -9,7 +9,7 @@ import qualified Zstring as Zstring
 
 main = do 
    {
-       bytes <- (BS.readFile "minizork.z3");
+       bytes <- (BS.readFile "./minizork.z3");
        let story = Story.load_Story bytes
        in do
        {
