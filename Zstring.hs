@@ -20,9 +20,9 @@ abbrev32 = Abbreviation (AbbreviationNumber 32)
 abbrev64 = Abbreviation (AbbreviationNumber 64)
 
 alphabetTable :: [[Char]]
-alphabetTable = [ " ?????abcdefghijklmnopqrstuvwxyz",
-                  " ?????ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                  " ??????\n0123456789.,!?_#'\"/\\-:()" ]                
+alphabetTable = [ " ?????" ++ ['a'..'z'],
+                  " ?????" ++ ['A'..'Z'],
+                  " ??????\n" ++ ['0'..'9'] ++ ".,!?_#'\"/\\-:()" ]                
 
 abbreviationTableLength :: Int
 abbreviationTableLength = 96
