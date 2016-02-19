@@ -58,9 +58,9 @@ read_Story story addr =
          let zcharBitSize = size5
              word = Story.read_Word story current_address
              isEnd = fetch_Bit bit15 word
-             Zchar zchar1 = Zchar (fetch_Bits bit14 size5 word)
-             Zchar zchar2 = Zchar (fetch_Bits bit9 size5 word)
-             Zchar zchar3 = Zchar (fetch_Bits bit4 size5 word)
+             zchar1 = Zchar (fetch_Bits bit14 size5 word)
+             zchar2 = Zchar (fetch_Bits bit9 size5 word)
+             zchar3 = Zchar (fetch_Bits bit4 size5 word)
              (text1, state2) = process_Zchar zchar1 state1
              (text2, state3) = process_Zchar zchar2 state2
              (text3, stateNext) = process_Zchar zchar3 state3
@@ -69,21 +69,21 @@ read_Story story addr =
             if isEnd == One then newAcc
             else aux newAcc stateNext (increment_WordAddress current_address)
          where
-            process_Zchar :: Int -> StringState -> (String, StringState)
-            process_Zchar 1 (Alphabet _) = ("", abbrev0)
-            process_Zchar 2 (Alphabet _) = ("", abbrev32)
-            process_Zchar 3 (Alphabet _) = ("", abbrev64)
-            process_Zchar 4 (Alphabet _) = ("", alphabet1)
-            process_Zchar 5 (Alphabet _) = ("", alphabet2)
-            process_Zchar 6 (Alphabet 2) = ("", Leading)
-            process_Zchar zchar (Alphabet a) = ([alphabetTable !! a !! zchar], alphabet0)
-            process_Zchar zchar (Abbreviation (AbbreviationNumber a)) =
+            process_Zchar :: Zchar -> StringState -> (String, StringState)
+            process_Zchar (Zchar 1) (Alphabet _) = ("", abbrev0)
+            process_Zchar (Zchar 2) (Alphabet _) = ("", abbrev32)
+            process_Zchar (Zchar 3) (Alphabet _) = ("", abbrev64)
+            process_Zchar (Zchar 4) (Alphabet _) = ("", alphabet1)
+            process_Zchar (Zchar 5) (Alphabet _) = ("", alphabet2)
+            process_Zchar (Zchar 6) (Alphabet 2) = ("", Leading)
+            process_Zchar (Zchar zchar) (Alphabet a) = ([alphabetTable !! a !! zchar], alphabet0)
+            process_Zchar (Zchar zchar) (Abbreviation (AbbreviationNumber a)) =
                let abbrv = AbbreviationNumber(a + zchar)
                    addr = abbreviation_ZstringAddress story abbrv
                    str = read_Story story addr
                in (str, alphabet0)
-            process_Zchar zchar Leading = ("", Trailing zchar)
-            process_Zchar zchar (Trailing high) =
+            process_Zchar (Zchar zchar) Leading = ("", Trailing zchar)
+            process_Zchar (Zchar zchar) (Trailing high) =
                let s = [Char.chr (high * 32 + zchar)]
                in (s, alphabet0)  
  
