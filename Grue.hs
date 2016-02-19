@@ -7,7 +7,7 @@ import Utility
 import qualified Story as Story
 
 main = do {
-    bytes <- (BS.readFile "minizork.z3");
+    bytes <- (BS.readFile "./minizork.z3");
     let story = Story.load_Story bytes in
     let versionAddress = ByteAddress 0 in
     let version = Story.read_Byte story versionAddress in
