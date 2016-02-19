@@ -9,4 +9,4 @@ newtype AbbreviationNumber = AbbreviationNumber Int deriving Eq
 newtype AbbreviationTableBase = AbbreviationTableBase Int
 newtype WordZstringAddress = WordZstringAddress Int --Compressed pointer
 newtype ZstringAddress = ZstringAddress Int --Uncompressed pointer
-newtype Zchar = Zchar Int
+--newtype Zchar = Zchar Int
