@@ -7,7 +7,9 @@ To build the project I'll be using the windows and mac Haskell platform. You can
 
 Disclaimer: I've started this project to begin learning Haskell. I am in no way experienced with the language nor with OCaml so this will be a pure learning experience of the functional world. I'd appreciate any lost soul who happens to stumble upon this project and knows about Haskell to give any constructive feedback about how well or awfully bad I'm porting Eric's code.
 
-Ok so now we have type safe bit twiddling, yay!. Next step is making ourselves an immutable byte array that will represent the dynamic memory of what we will later call the stroy state of the ZMachine.
+---------------------------------------
+
+Ok so now we have type safe bit twiddling, yay!. Next step is making ourselves an immutable byte array that will represent the dynamic memory of what will later be called the story state of the ZMachine.
 
 Code of this branch follows part four of Eric's bloq series: [Up a tree](http://ericlippert.com/2016/02/09/up-a-tree/)
 
