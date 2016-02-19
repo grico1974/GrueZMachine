@@ -70,23 +70,22 @@ read_Story story addr =
             else aux newAcc stateNext (increment_WordAddress current_address)
          where
             process_Zchar :: Zchar -> StringState -> (String, StringState)
-            process_Zchar zcharacter state =
-               let (Zchar zchar) = zcharacter in
-               case (zchar, state) of 
-                  (1, Alphabet _) -> ("", abbrev0)
-                  (2, Alphabet _) -> ("", abbrev32)
-                  (3, Alphabet _) -> ("", abbrev64)
-                  (4, Alphabet _) -> ("", alphabet1)
-                  (5, Alphabet _) -> ("", alphabet2)
-                  (6, Alphabet 2) -> ("", Leading)
-                  (_, Alphabet a) -> ([alphabetTable !! a !! zchar], alphabet0)
-                  (_, Abbreviation (AbbreviationNumber a)) ->
+            process_Zchar (Zchar zchar) state =
+               evolve_To_Next_State zchar state where
+                  evolve_To_Next_State 1 (Alphabet _) = ("", abbrev0)
+                  evolve_To_Next_State 2 (Alphabet _) = ("", abbrev32)
+                  evolve_To_Next_State 3 (Alphabet _) = ("", abbrev64)
+                  evolve_To_Next_State 4 (Alphabet _) = ("", alphabet1)
+                  evolve_To_Next_State 5 (Alphabet _) = ("", alphabet2)
+                  evolve_To_Next_State 6 (Alphabet 2) = ("", Leading)
+                  evolve_To_Next_State _ (Alphabet a) = ([alphabetTable !! a !! zchar], alphabet0)
+                  evolve_To_Next_State _ (Abbreviation (AbbreviationNumber a)) =
                      let abbrv = AbbreviationNumber(a + zchar)
                          addr = abbreviation_ZstringAddress story abbrv
                          str = read_Story story addr
                      in (str, alphabet0)
-                  (_, Leading) -> ("", Trailing zchar)
-                  (_, Trailing high) ->
+                  evolve_To_Next_State _ Leading = ("", Trailing zchar)
+                  evolve_To_Next_State _ (Trailing high) =
                      let s = [Char.chr (high * 32 + zchar)]
                      in (s, alphabet0)  
  
