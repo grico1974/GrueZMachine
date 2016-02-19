@@ -7,4 +7,10 @@ To build the project I'll be using the windows and mac Haskell platform. You can
 
 Disclaimer: I've started this project to begin learning Haskell. I am in no way experienced with the language nor with OCaml so this will be a pure learning experience of the functional world. I'd appreciate any lost soul who happens to stumble upon this project and knows about Haskell to give any constructive feedback about how well or awfully bad I'm porting Eric's code.
 
-More Zstring decoding
+It seems that *Zstring* decoding is a little bit more involved than what we saw in the last episode.
+
+Eric's implementation is perfect to showcase one of the most amazing features of functional languages (although we have already been using it since day one): pattern matching. In Haskell, as I'm pretty sure happens in OCaml, there is whole pletora of ways to use pattern matching in functions, [Syntax in Functions](http://learnyouahaskell.com/syntax-in-functions) is a great place to start reading about the subject.
+
+I've chosen to port Eric's code defining different function bodies of `process_Zchar` for every argument pattern. In my opinion this looks like the cleanest approach.
+
+Something I haven't quite figured out is why Eric is using the type `Zchar`. There is very little danger of using an `Int` wrong in the code as it stands now. In my Haskell implementation its much cleaner to directly skip using `Zchar` in what is, after all, a nested call never exposed to the outside. I will keep, commented out, the type definition in *Types.hs* in case it is used further on.
