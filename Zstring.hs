@@ -70,24 +70,23 @@ read_Story story addr =
             else aux newAcc stateNext (increment_WordAddress current_address)
          where
             process_Zchar :: Zchar -> StringState -> (String, StringState)
-            process_Zchar (Zchar zchar) state =
-               evolve_To_Next_State zchar state where
-                  evolve_To_Next_State 1 (Alphabet _) = ("", abbrev0)
-                  evolve_To_Next_State 2 (Alphabet _) = ("", abbrev32)
-                  evolve_To_Next_State 3 (Alphabet _) = ("", abbrev64)
-                  evolve_To_Next_State 4 (Alphabet _) = ("", alphabet1)
-                  evolve_To_Next_State 5 (Alphabet _) = ("", alphabet2)
-                  evolve_To_Next_State 6 (Alphabet 2) = ("", Leading)
-                  evolve_To_Next_State _ (Alphabet a) = ([alphabetTable !! a !! zchar], alphabet0)
-                  evolve_To_Next_State _ (Abbreviation (AbbreviationNumber a)) =
-                     let abbrv = AbbreviationNumber(a + zchar)
-                         addr = abbreviation_ZstringAddress story abbrv
-                         str = read_Story story addr
-                     in (str, alphabet0)
-                  evolve_To_Next_State _ Leading = ("", Trailing zchar)
-                  evolve_To_Next_State _ (Trailing high) =
-                     let s = [Char.chr (high * 32 + zchar)]
-                     in (s, alphabet0)  
+            process_Zchar (Zchar zchar) state = next_State zchar state where
+               next_State 1 (Alphabet _) = ("", abbrev0)
+               next_State 2 (Alphabet _) = ("", abbrev32)
+               next_State 3 (Alphabet _) = ("", abbrev64)
+               next_State 4 (Alphabet _) = ("", alphabet1)
+               next_State 5 (Alphabet _) = ("", alphabet2)
+               next_State 6 (Alphabet 2) = ("", Leading)
+               next_State _ (Alphabet a) = ([alphabetTable !! a !! zchar], alphabet0)
+               next_State _ (Abbreviation (AbbreviationNumber a)) =
+                  let abbrv = AbbreviationNumber(a + zchar)
+                      addr = abbreviation_ZstringAddress story abbrv
+                      str = read_Story story addr
+                  in (str, alphabet0)
+               next_State _ Leading = ("", Trailing zchar)
+               next_State _ (Trailing high) =
+                  let s = [Char.chr (high * 32 + zchar)]
+                  in (s, alphabet0)  
  
 display_Bytes :: Story.Story -> ZstringAddress -> String
 display_Bytes story address =
