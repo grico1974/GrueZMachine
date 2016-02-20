@@ -15,9 +15,9 @@ data StringState = Alphabet Int |
 alphabet0 = Alphabet 0
 alphabet1 = Alphabet 1
 alphabet2 = Alphabet 2
-abbrev0 = Abbreviation (AbbreviationNumber 0)
-abbrev32 = Abbreviation (AbbreviationNumber 32)
-abbrev64 = Abbreviation (AbbreviationNumber 64)
+abbrev0 = Abbreviation $ AbbreviationNumber 0
+abbrev32 = Abbreviation $ AbbreviationNumber 32
+abbrev64 = Abbreviation $ AbbreviationNumber 64
 
 alphabetTable :: [[Char]]
 alphabetTable = [ " ?????" ++ ['a'..'z'],
@@ -30,7 +30,7 @@ abbreviationTableLength = 96
 uncompress_Address :: WordZstringAddress -> ZstringAddress
 uncompress_Address address =
    let WordZstringAddress addr = address
-   in ZstringAddress (2 * addr)
+   in ZstringAddress $ 2 * addr
 
 first_AbbreviationAddress :: AbbreviationTableBase -> WordAddress
 first_AbbreviationAddress address =
@@ -41,18 +41,18 @@ abbreviation_ZstringAddress :: Story.Story -> AbbreviationNumber -> ZstringAddre
 abbreviation_ZstringAddress story number =
    let AbbreviationNumber n = number
    in
-      if n < 0 || n >=    abbreviationTableLength then
+      if n < 0 || n >= abbreviationTableLength then
          error "Bad offset into abbreviation table"
       else
-        let base = first_AbbreviationAddress (Story.abbreviations_Table_Base story)
+        let base = first_AbbreviationAddress $ Story.abbreviations_Table_Base story
             abbreviationAddress = increment_WordAddress_By base n
-            compressedAddress = WordZstringAddress (Story.read_Word story abbreviationAddress)
+            compressedAddress = WordZstringAddress $ Story.read_Word story abbreviationAddress
         in uncompress_Address compressedAddress
 
 read_Story :: Story.Story -> ZstringAddress -> String
 read_Story story addr =
    let ZstringAddress address = addr
-   in aux "" alphabet0 (WordAddress address) where
+   in aux "" alphabet0 $ WordAddress address where
       aux :: String -> StringState -> WordAddress -> String
       aux acc state1 current_address =
          let zcharBitSize = size5
@@ -67,7 +67,7 @@ read_Story story addr =
              newAcc = acc ++ text1 ++ text2 ++ text3
          in
             if isEnd == One then newAcc
-            else aux newAcc stateNext (increment_WordAddress current_address)
+            else aux newAcc stateNext $ increment_WordAddress current_address
          where
             process_Zchar :: Int -> StringState -> (String, StringState)
             process_Zchar 1 (Alphabet _) = ("", abbrev0)
@@ -78,13 +78,13 @@ read_Story story addr =
             process_Zchar 6 (Alphabet 2) = ("", Leading)
             process_Zchar zchar (Alphabet a) = ([alphabetTable !! a !! zchar], alphabet0)
             process_Zchar zchar (Abbreviation (AbbreviationNumber a)) =
-               let abbrv = AbbreviationNumber(a + zchar)
+               let abbrv = AbbreviationNumber $ a + zchar
                    addr = abbreviation_ZstringAddress story abbrv
                    str = read_Story story addr
                in (str, alphabet0)
             process_Zchar zchar Leading = ("", Trailing zchar)
             process_Zchar zchar (Trailing high) =
-               let s = [Char.chr (high * 32 + zchar)]
+               let s = [Char.chr $ high * 32 + zchar]
                in (s, alphabet0)  
  
 display_Bytes :: Story.Story -> ZstringAddress -> String

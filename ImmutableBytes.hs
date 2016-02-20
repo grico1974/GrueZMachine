@@ -19,7 +19,7 @@ read_Byte :: ImmutableBytes -> ByteAddress -> Int
 read_Byte bytes address =
    let ImmutableBytes originalBytes edits = bytes
    in
-      if is_Out_Of_Range address (BS.length originalBytes) then 
+      if is_Out_Of_Range address $ BS.length originalBytes then 
          error "address is out of range"
       else
          let ByteAddress addr = address
@@ -33,12 +33,12 @@ write_Byte :: ImmutableBytes -> ByteAddress -> Int -> ImmutableBytes
 write_Byte bytes address value =
    let ImmutableBytes originalBytes edits = bytes
    in
-      if is_Out_Of_Range address (BS.length originalBytes) then 
+      if is_Out_Of_Range address $ BS.length originalBytes then 
          error "address is out of range"
       else
          let ByteAddress addr = address
-             word = fromIntegral (value) :: Word8
-         in ImmutableBytes originalBytes (IntMap.insert addr word edits)
+             word = fromIntegral value :: Word8
+         in ImmutableBytes originalBytes $ IntMap.insert addr word edits
 
 original :: ImmutableBytes -> ImmutableBytes
 original (ImmutableBytes originalBytes _) =

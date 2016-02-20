@@ -26,8 +26,8 @@ write_Byte story address value =
 
 read_Word :: Story -> WordAddress -> Int
 read_Word story address =
-   let high = read_Byte story (address_Of_High_Byte address)
-       low = read_Byte story (address_Of_Low_Byte address)
+   let high = read_Byte story $ address_Of_High_Byte address
+       low = read_Byte story $ address_Of_Low_Byte address
    in high * 256 + low
 
 write_Word :: Story -> WordAddress -> Int -> Story
@@ -43,7 +43,7 @@ static_Memory_Base_Offset = WordAddress 14
 abbreviations_Table_Base :: Story -> AbbreviationTableBase
 abbreviations_Table_Base story =
    let abbreviationsTableBaseOffset = WordAddress 24
-   in AbbreviationTableBase (read_Word story abbreviationsTableBaseOffset)
+   in AbbreviationTableBase $ read_Word story abbreviationsTableBaseOffset
    
 load_Story :: BS.ByteString -> Story
 load_Story bytes =
@@ -52,8 +52,8 @@ load_Story bytes =
       if len < header_size then
          error "Specified file is not a valid story file"
       else
-         let high = dereference_ByteString bytes (address_Of_High_Byte static_Memory_Base_Offset)
-             low = dereference_ByteString bytes (address_Of_Low_Byte static_Memory_Base_Offset)
+         let high = dereference_ByteString bytes $ address_Of_High_Byte static_Memory_Base_Offset
+             low = dereference_ByteString bytes $ address_Of_Low_Byte static_Memory_Base_Offset
              dynamicLength = high * 256 + low
          in
             if dynamicLength > len then

@@ -59,28 +59,28 @@ fetch_Bits highBit bitLength word =
 
 is_In_Range :: ByteAddress -> Int -> Bool
 is_In_Range address size =
-   let (ByteAddress addr) = address
+   let ByteAddress addr = address
    in 0 <= addr && addr < size
 
 is_Out_Of_Range :: ByteAddress -> Int -> Bool
-is_Out_Of_Range address size = not (is_In_Range address size)
+is_Out_Of_Range address size = not $ is_In_Range address size
 
 increment_ByteAddress_By :: ByteAddress -> Int -> ByteAddress
 increment_ByteAddress_By address offset =
    let ByteAddress addr = address
-   in ByteAddress (addr + offset)
+   in ByteAddress $ addr + offset
 
 decrement_ByteAddress_By :: ByteAddress -> Int -> ByteAddress
 decrement_ByteAddress_By address offset =
-   increment_ByteAddress_By address (-offset)
+   increment_ByteAddress_By address $ -offset
 
 dereference_ByteString :: BS.ByteString -> ByteAddress -> Int
 dereference_ByteString bytes address =
-   if is_Out_Of_Range address (BS.length bytes) then
+   if is_Out_Of_Range address $ BS.length bytes then
       error "address out of range"
    else
       let ByteAddress addr = address
-      in fromIntegral (bytes `BS.index` addr)
+      in fromIntegral $ bytes `BS.index` addr
 
 address_Of_High_Byte :: WordAddress -> ByteAddress
 address_Of_High_Byte address =
@@ -90,7 +90,7 @@ address_Of_High_Byte address =
 address_Of_Low_Byte :: WordAddress -> ByteAddress
 address_Of_Low_Byte address =
    let WordAddress addr = address
-   in ByteAddress (addr + 1)
+   in ByteAddress $ addr + 1
 
 wordSize :: Int
 wordSize = 2
@@ -98,7 +98,7 @@ wordSize = 2
 increment_WordAddress_By :: WordAddress -> Int -> WordAddress
 increment_WordAddress_By address offset =
    let WordAddress addr = address
-   in WordAddress (addr + offset * wordSize)
+   in WordAddress $ addr + offset * wordSize
 
 increment_WordAddress :: WordAddress -> WordAddress
 increment_WordAddress address =
