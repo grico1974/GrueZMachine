@@ -1,5 +1,6 @@
 module Dictionary where
 
+import Text.Printf
 import Types
 import Utility
 import qualified Story as Story
@@ -49,4 +50,4 @@ display story =
    let count = entry_Count story
    in accumulate_Strings_Loop to_String 0 count where
       to_String :: Int -> String
-      to_String i = entry story $ DictionaryNumber i 
+      to_String i = printf "%s " $ entry story $ DictionaryNumber i
