@@ -7,6 +7,7 @@ import Types
 import Utility
 import qualified Story as Story
 
+main :: IO ()
 main = 
    do bytes <- open_Story_File "minizork.z3"
       let story = Story.load_Story bytes
