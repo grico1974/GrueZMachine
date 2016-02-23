@@ -6,7 +6,8 @@ import Text.Printf
 import Types
 import qualified Story as Story
 import qualified Zstring as Zstring
- 
+
+main :: IO () 
 main = do
        bytes <- open_Story_File "minizork.z3"
        let story = Story.load_Story bytes
