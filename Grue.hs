@@ -8,10 +8,15 @@ import qualified Story as Story
 import qualified Zstring as Zstring
  
 main = do
-       path <- getExecutablePath
-       progName <- getProgName
-       let storyPath = take (length path - length progName) path ++ "minizork.z3"
-       bytes <- BS.readFile storyPath
+       bytes <- open_Story_File "minizork.z3"
        let story = Story.load_Story bytes
            text = Zstring.read_Story story $ ZstringAddress 0xb106
-       printf "%s\n" text 
+       printf "%s\n" text
+
+--Platform independent
+--Relative paths are not working as expected in OS X
+open_Story_File :: FilePath -> IO BS.ByteString
+open_Story_File fileName = 
+   do path <- getExecutablePath
+      progName <- getProgName
+      BS.readFile $ take (length path - length progName) path ++ fileName
