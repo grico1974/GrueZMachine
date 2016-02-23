@@ -38,6 +38,12 @@ write_Word story address value =
    in write_Byte story (address_Of_Low_Byte address) low
 
 header_size = 64
+
+dictionary_Base :: Story -> DictionaryBase
+dictionary_Base story =
+   let dictionaryBaseOffset = WordAddress 8
+   in DictionaryBase $ read_Word story dictionaryBaseOffset
+
 static_Memory_Base_Offset = WordAddress 14
 
 abbreviations_Table_Base :: Story -> AbbreviationTableBase

@@ -70,6 +70,10 @@ increment_ByteAddress_By address offset =
    let ByteAddress addr = address
    in ByteAddress $ addr + offset
 
+increment_ByteAddress :: ByteAddress -> ByteAddress
+increment_ByteAddress address =
+    increment_ByteAddress_By address 1
+
 decrement_ByteAddress_By :: ByteAddress -> Int -> ByteAddress
 decrement_ByteAddress_By address offset =
    increment_ByteAddress_By address $ -offset
@@ -103,3 +107,12 @@ increment_WordAddress_By address offset =
 increment_WordAddress :: WordAddress -> WordAddress
 increment_WordAddress address =
    increment_WordAddress_By address 1
+
+accumulate_Strings_Loop :: (Int -> String) -> Int -> Int -> String
+accumulate_Strings_Loop toString start max =
+   aux "" start where
+      aux :: String -> Int -> String
+      aux acc i =
+         if i >= max then acc
+         else aux (acc ++ toString i) $ i + 1
+      
