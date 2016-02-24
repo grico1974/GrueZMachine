@@ -13,6 +13,21 @@ It seems that *Zstring* decoding is a little bit more involved than what we saw 
 
 Eric's implementation is perfect to showcase one of the most amazing features of functional languages (although we have already been using it since day one): pattern matching. In Haskell, as I'm pretty sure happens in OCaml, there is whole pletora of ways to use pattern matching in functions. [Syntax in Functions](http://learnyouahaskell.com/syntax-in-functions) is a great place to start reading about the subject.
 
+Something to note is that Haskell falls behind OCaml when it comes to compile time "safety" while pattern matching. I find it pretty convenient that in OCaml the compiler will balk if certain patterns are not handled. This is not the case in Haskell, where the compiler will compile the code perfectly fin and you will get a runtime error if a given pattern can't be matched:
+
+    data State = Blue | Green | Orange deriving (Show)
+
+    match :: Int -> State -> (String, State)
+    match n state = 
+       case (n, state) of 
+          (_, Green) -> ("Green", Blue)
+          (_, Blue) -> ("Blue", Orange)
+
+    >> match 4 Green
+    >> ("Green", "Blue")
+    >> match 4, Orange
+    >> *** Exception: D:\LearningHaskell\learning.hs:(5,4)-(7,35): Non-exhaustive patterns in case
+    
 I've chosen to port Eric's code defining different function bodies of `process_Zchar` for each argument pattern. In my opinion this looks like the cleanest approach. Eric's implementation is somewhat similar (at least syntax wise) to Haskell's *case expressions* but I will skip using them here.
 
 Something I haven't quite figured out is why Eric is using the `Zchar` type. I see very little danger in using `Int` in what is, after all, a nested call never exposed to the outside. I will therefore skip using `Zchar` but will keep, commented out, the type definition in *Types.hs* in case it is used further on.
