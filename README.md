@@ -28,6 +28,6 @@ Something to note is that Haskell falls behind OCaml when it comes to compile ti
     >> match 4 Green
     >> ("Green", "Blue")
     >> match 4, Orange
-    >> *** Exception: D:\LearningHaskell\learning.hs:(5,4)-(7,35): Non-exhaustive patterns in case
+    >> *** Exception: D:\...\caseRuntimeException.hs:(5,4)-(7,35): Non-exhaustive patterns in case
 
 As a minor sidenote, something I haven't quite figured out is why Eric is using the `Zchar` type. I see very little danger in using `Int` in what is, after all, a nested call never exposed to the outside. I will therefore skip using `Zchar` but will keep, commented out, the type definition in *Types.hs* in case it is used further on.
