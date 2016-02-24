@@ -13,7 +13,7 @@ It seems that *Zstring* decoding is a little bit more involved than what we saw 
 
 Eric's implementation is perfect to showcase one of the most amazing features of functional languages (although we have already been using it since day one): pattern matching. In Haskell, as I'm pretty sure happens in OCaml, there is whole pletora of ways to use pattern matching in functions. [Syntax in Functions](http://learnyouahaskell.com/syntax-in-functions) is a great place to start reading about the subject.
 
-Something to note is that Haskell falls behind OCaml when it comes to compile time "safety" while pattern matching. I find it pretty convenient that in OCaml the compiler will balk if certain patterns are not handled. This feature allows you to identify stupid bugs, or even better, deeper logic bugs at compile time. This is not the case in Haskell, where the compiler will compile the code perfectly fine and you will get a runtime error if a given pattern can't be matched:
+Something to note is that Haskell falls behind OCaml when it comes to compile time "safety" while pattern matching. I find it pretty convenient that in OCaml the compiler will balk if certain patterns are not handled. This feature allows you to identify stupid bugs, or even better, deeper logic bugs at compile time. This is not the case in Haskell, where the following code will compile just fine:
 
     data State = Blue | Green | Orange deriving (Show)
 
