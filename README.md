@@ -30,4 +30,6 @@ Something to note is that Haskell falls behind OCaml when it comes to compile ti
     >> match 4, Orange
     >> *** Exception: D:\...\caseRuntimeException.hs:(5,4)-(7,35): Non-exhaustive patterns in case
 
+Haskell lets you define a "catch anything left" case using the `otherwise` keyword, but this doesn't really help at all when dealing with logic bugs and can make them harder to find as they will not crash the program.
+
 As a minor sidenote, something I haven't quite figured out is why Eric is using the `Zchar` type. I see very little danger in using `Int` in what is, after all, a nested call never exposed to the outside. I will therefore skip using `Zchar` but will keep, commented out, the type definition in *Types.hs* in case it is used further on.
