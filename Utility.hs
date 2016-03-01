@@ -63,7 +63,8 @@ is_In_Range address size =
    in 0 <= addr && addr < size
 
 is_Out_Of_Range :: ByteAddress -> Int -> Bool
-is_Out_Of_Range address size = not $ is_In_Range address size
+is_Out_Of_Range address size = 
+   not $ is_In_Range address size
 
 increment_ByteAddress_By :: ByteAddress -> Int -> ByteAddress
 increment_ByteAddress_By address offset =
@@ -110,9 +111,5 @@ increment_WordAddress address =
 
 accumulate_Strings_Loop :: (Int -> String) -> Int -> Int -> String
 accumulate_Strings_Loop toString start max =
-   aux "" start where
-      aux :: String -> Int -> String
-      aux acc i =
-         if i >= max then acc
-         else aux (acc ++ toString i) $ i + 1
+   foldl (\acc i -> acc ++ (toString i)) "" [start..(max - 1)]
       
