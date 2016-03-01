@@ -111,5 +111,5 @@ increment_WordAddress address =
 
 accumulate_Strings_Loop :: (Int -> String) -> Int -> Int -> String
 accumulate_Strings_Loop toString start max =
-   foldl (\acc i -> acc ++ (toString i)) "" [start..(max - 1)]
+   foldl (\acc i -> acc ++ toString i) "" [start..max - 1]
       
